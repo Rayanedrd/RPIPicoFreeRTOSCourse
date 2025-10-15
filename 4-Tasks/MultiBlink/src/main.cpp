@@ -1,5 +1,5 @@
 /***
- * Demo program to flash 5 LED attached to GPIO PAD 0, 2,3,4, 5.
+ * Demo program to flash an LED attached to GPIO PAD 0.
  * Uses FreeRTOS Task
  * Jon Durrant
  * 15-Aug-2022
@@ -13,17 +13,20 @@
 #include <stdio.h>
 
 #include "BlinkAgent.h"
+#include "BlinkWorker.h"
+#include "BlinkHeavy.h"
 
 
 //Standard Task priority
 #define TASK_PRIORITY		( tskIDLE_PRIORITY + 1UL )
 
 //LED PAD to use
-#define LED_PAD					0
-#define LED1_PAD				2
-#define LED2_PAD				3
-#define LED3_PAD				4
-#define LED4_PAD				5
+#define LED_PAD				6
+#define LED1_PAD			2
+#define LED2_PAD			3
+
+//DRIDI RAYANE
+//F14218807
 
 
 
@@ -83,18 +86,14 @@ void runTimeStats(   ){
  */
 void mainTask(void *params){
 	BlinkAgent blink(LED_PAD);
-	BlinkAgent worker1(LED1_PAD);
-	BlinkAgent worker2(LED2_PAD);
-	BlinkAgent worker3(LED3_PAD);
-	BlinkAgent worker4(LED4_PAD);
+	BlinkWorker worker1(LED1_PAD);
+	BlinkHeavy worker2(LED2_PAD);
 
 	printf("Main task started\n");
 
 	blink.start("Blink", TASK_PRIORITY);
-	worker1.start("Worker 1", TASK_PRIORITY);
-	worker2.start("Worker 2", TASK_PRIORITY + 1);
-	worker3.start("Worker 3", TASK_PRIORITY + 2);
-	worker4.start("Worker 4", TASK_PRIORITY + 3);
+	worker1.start("Worker 1", TASK_PRIORITY+ 1);
+	worker2.start("Worker 2", TASK_PRIORITY + 2);
 
 	while (true) { // Loop forever
 		runTimeStats();

@@ -19,4 +19,4 @@ Mid term exam
 I addeds 4 LEDs.
 I added 4 workers.
 I addeds my full name and my student ID on the main (DRIDI Rayane, F14218807) and i printf it.
-Also I have 12 tasks.
+Also I create 12 tasks with RP2040.
